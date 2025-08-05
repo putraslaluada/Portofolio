@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Loading Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        
+        /* Luxury Gradient Background */
+        .luxury-bg {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(29, 78, 216, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
+            background-size: 400% 400%;
+            animation: luxuryFlow 12s ease infinite;
+            position: relative;
+        }
+        
+        .luxury-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 50% 50%, transparent 0%, rgba(0,0,0,0.1) 100%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: noiseMove 20s linear infinite;
+        }
+        
+        @keyframes luxuryFlow {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 25%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 25% 0%; }
+        }
+        
+        @keyframes noiseMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-60px, -60px); }
+        }
+        
+        /* Elegant Particle System */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: elegantFloat 8s ease-in-out infinite;
+        }
+        
+        .particle.type-1 {
+            background: radial-gradient(circle, rgba(219, 234, 254, 0.7) 0%, rgba(219, 234, 254, 0.15) 70%, transparent 100%);
+            box-shadow: 0 0 8px rgba(219, 234, 254, 0.2);
+        }
+        
+        .particle.type-2 {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.5) 0%, rgba(59, 130, 246, 0.08) 70%, transparent 100%);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
+        }
+        
+        .particle.type-3 {
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.4) 0%, rgba(37, 99, 235, 0.08) 70%, transparent 100%);
+            box-shadow: 0 0 10px rgba(37, 99, 235, 0.15);
+        }
+        
+        @keyframes elegantFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) translateX(10px) rotate(45deg) scale(1);
+            }
+            50% {
+                transform: translateY(50vh) translateX(-20px) rotate(180deg) scale(1.2);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) translateX(15px) rotate(315deg) scale(0.8);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(0) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* Luxury Loading Ring System */
+        .loading-ring {
+            position: relative;
+            width: 140px;
+            height: 140px;
+        }
+        
+        .loading-ring::before {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top: 2px solid rgba(219, 234, 254, 0.8);
+            border-right: 2px solid rgba(219, 234, 254, 0.25);
+            animation: luxurySpin 3s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            filter: drop-shadow(0 0 8px rgba(219, 234, 254, 0.2));
+        }
+        
+        .loading-ring::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            top: 20px;
+            left: 20px;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.7);
+            border-left: 1px solid rgba(59, 130, 246, 0.35);
+            animation: luxurySpin 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse;
+            filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.15));
+        }
+        
+        @keyframes luxurySpin {
+            0% { 
+                transform: rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.05);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: rotate(360deg) scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Luxury Center Orb */
+        .center-orb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(219, 234, 254, 0.9) 0%, rgba(219, 234, 254, 0.7) 30%, rgba(59, 130, 246, 0.3) 70%, transparent 100%);
+            border-radius: 50%;
+            box-shadow: 
+                0 0 16px rgba(219, 234, 254, 0.4),
+                0 0 32px rgba(219, 234, 254, 0.2),
+                0 0 48px rgba(59, 130, 246, 0.15),
+                inset 0 0 16px rgba(219, 234, 254, 0.08);
+            animation: luxuryOrbPulse 3s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .center-orb::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: orbHighlight 3s ease-in-out infinite;
+        }
+        
+        @keyframes luxuryOrbPulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 
+                    0 0 16px rgba(219, 234, 254, 0.4),
+                    0 0 32px rgba(219, 234, 254, 0.2),
+                    0 0 48px rgba(59, 130, 246, 0.15);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.1);
+                box-shadow: 
+                    0 0 24px rgba(219, 234, 254, 0.6),
+                    0 0 48px rgba(219, 234, 254, 0.3),
+                    0 0 72px rgba(59, 130, 246, 0.2);
+            }
+        }
+        
+        @keyframes orbHighlight {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        /* Elegant Text Styling */
+        .title-text {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 25%, #dbeafe 50%, #bfdbfe 75%, #dbeafe 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: luxuryTextShimmer 4s ease-in-out infinite;
+            text-shadow: 0 0 24px rgba(219, 234, 254, 0.2);
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        
+        .title-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+            animation: underlineGlow 4s ease-in-out infinite;
+        }
+        
+        .subtitle-text {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            opacity: 0.8;
+            position: relative;
+        }
+        
+        @keyframes luxuryTextShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 25%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 25% 0%; }
+        }
+        
+        @keyframes underlineGlow {
+            0%, 100% { opacity: 0.3; width: 40px; }
+            50% { opacity: 1; width: 80px; }
+        }
+        
+        .slide-up {
+            animation: slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+
+        
+        /* Luxury Progress Bar System */
+        .progress-container {
+            position: relative;
+            background: 
+                linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 30px;
+            padding: 6px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, rgba(219, 234, 254, 0.08), rgba(59, 130, 246, 0.08), rgba(37, 99, 235, 0.08));
+            border-radius: 30px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: 
+                linear-gradient(90deg, 
+                    rgba(219, 234, 254, 0.8) 0%, 
+                    rgba(219, 234, 254, 0.6) 25%,
+                    rgba(59, 130, 246, 0.7) 50%,
+                    rgba(219, 234, 254, 0.6) 75%,
+                    rgba(219, 234, 254, 0.8) 100%);
+            background-size: 300% 100%;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 16px rgba(219, 234, 254, 0.2),
+                inset 0 1px 0 rgba(219, 234, 254, 0.3);
+            animation: 
+                luxuryProgressShine 3s ease-in-out infinite, 
+                fillLuxuryProgress 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(219, 234, 254, 0.3), transparent);
+            animation: progressSweep 2s ease-in-out infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        @keyframes luxuryProgressShine {
+            0%, 100% { background-position: -300% 0; }
+            50% { background-position: 300% 0; }
+        }
+        
+        @keyframes progressSweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes fillLuxuryProgress {
+            0% { width: 0%; }
+            8% { width: 5%; }
+            18% { width: 15%; }
+            30% { width: 28%; }
+            45% { width: 45%; }
+            60% { width: 65%; }
+            75% { width: 82%; }
+            90% { width: 96%; }
+            100% { width: 100%; }
+        }
+        
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            background: rgba(219, 234, 254, 0.06);
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(219, 234, 254, 0.12);
+            animation: floatAround 8s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 70%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+        
+        .floating-element:nth-child(4) {
+            width: 30px;
+            height: 30px;
+            top: 30%;
+            right: 25%;
+            animation-delay: 6s;
+        }
+        
+        @keyframes floatAround {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(30px, -30px) rotate(90deg); }
+            50% { transform: translate(-20px, -60px) rotate(180deg); }
+            75% { transform: translate(-40px, 20px) rotate(270deg); }
+        }
+        
+        /* Status Text Animation */
+        .status-text {
+            animation: statusFade 3s ease-in-out infinite;
+        }
+        
+        @keyframes statusFade {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        /* Completion Animation */
+        .completion-burst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(219, 234, 254, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            animation: completionBurst 1s ease-out 3.8s forwards;
+        }
+        
+        @keyframes completionBurst {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2);
+            }
+        }
+        
+        /* Success Checkmark */
+        .success-check {
+            opacity: 0;
+            animation: successAppear 0.8s ease-out 4s forwards;
+        }
+        
+        @keyframes successAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-45deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(-45deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+        
+
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .title-text {
+                font-size: 6rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title-text {
+                font-size: 4rem;
+            }
+            .loading-ring {
+                width: 100px;
+                height: 100px;
+            }
+            .loading-ring::after {
+                width: 60px;
+                height: 60px;
+                top: 20px;
+                left: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title-text {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Luxury Loading Screen -->
+    <div class="fixed inset-0 luxury-bg flex items-center justify-center">
+        <!-- Particle System -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Floating Elements -->
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        
+        <!-- Completion Burst Effect -->
+        <div class="completion-burst"></div>
+        
+        <!-- Main Loading Content -->
+        <div class="text-center text-white z-10 relative max-w-6xl mx-auto px-6">
+
+            
+            <!-- Main Title -->
+            <h1 class="title-text text-6xl md:text-8xl lg:text-9xl font-bold mb-6 slide-up" style="animation-delay: 0.3s;">
+                Portofolio
+            </h1>
+            
+            <!-- Elegant Subtitle -->
+            <p class="subtitle-text text-lg md:text-xl mb-8 slide-up" style="animation-delay: 0.6s;">
+                Crafting Digital Excellence
+            </p>
+            
+            <!-- Premium Progress Bar -->
+            <div class="progress-container w-80 max-w-full mx-auto mb-5 slide-up" style="animation-delay: 0.9s;">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <!-- Percentage Display -->
+            <div class="text-3xl font-semibold mb-3 slide-up" style="animation-delay: 1.2s;">
+                <span id="percentage">0</span>%
+            </div>
+            
+            <!-- Dynamic Status -->
+            <div class="status-text text-sm font-medium opacity-80 slide-up" style="animation-delay: 1.5s;">
+                <span id="loadingStatus">Initializing experience...</span>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <script>
+        // Create elegant particle system
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                
+                // Assign particle types for variety
+                const types = ['type-1', 'type-2', 'type-3'];
+                const randomType = types[Math.floor(Math.random() * types.length)];
+                particle.className = `particle ${randomType}`;
+                
+                // Elegant size variations
+                const size = Math.random() * 6 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Premium loading system
+        let progress = 0;
+        const percentageElement = document.getElementById('percentage');
+        const statusElement = document.getElementById('loadingStatus');
+        
+        const elegantLoadingSteps = [
+            { progress: 8, status: 'Initializing elegance...', delay: 300 },
+            { progress: 18, status: 'Loading premium assets...', delay: 400 },
+            { progress: 32, status: 'Crafting interface...', delay: 350 },
+            { progress: 48, status: 'Optimizing experience...', delay: 380 },
+            { progress: 65, status: 'Applying luxury touches...', delay: 320 },
+            { progress: 82, status: 'Perfecting details...', delay: 280 },
+            { progress: 96, status: 'Almost ready...', delay: 250 },
+            { progress: 100, status: 'Welcome to Excellence!', delay: 400 }
+        ];
+        
+        let currentStep = 0;
+        let targetProgress = 0;
+        
+        // Smooth progress animation
+        function animateProgress() {
+            if (progress < targetProgress) {
+                progress += 0.5;
+                percentageElement.textContent = Math.floor(progress);
+                requestAnimationFrame(animateProgress);
+            }
+        }
+        
+        // Execute elegant loading steps
+        function executeLoadingStep() {
+            if (currentStep < elegantLoadingSteps.length) {
+                const step = elegantLoadingSteps[currentStep];
+                targetProgress = step.progress;
+                statusElement.textContent = step.status;
+                
+                animateProgress();
+                
+                setTimeout(() => {
+                    currentStep++;
+                    executeLoadingStep();
+                }, step.delay * (Math.random() * 1.5 + 2));
+            } else {
+                // Elegant loading complete
+                setTimeout(() => {
+                    console.log('Elegant loading experience completed!');
+                    window.location.href = 'http://127.0.0.1:5500/profile/profile.html'; // Redirect ke URL yang diminta
+                }, 1200);
+            }
+        }
+        
+        // Interactive click effects
+        document.addEventListener('click', (e) => {
+            createRippleEffect(e.clientX, e.clientY);
+        });
+        
+        function createRippleEffect(x, y) {
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.4);
+                transform: scale(0);
+                animation: rippleEffect 0.8s ease-out;
+                pointer-events: none;
+                width: 100px;
+                height: 100px;
+                left: ${x - 50}px;
+                top: ${y - 50}px;
+                z-index: 1000;
+            `;
+            
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 800);
+        }
+        
+        // Add ripple animation
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes rippleEffect {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            setTimeout(executeLoadingStep, 500);
+        });
+        
+        // Add mouse movement parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            document.querySelectorAll('.floating-element').forEach((element, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed * 20;
+                const y = (mouseY - 0.5) * speed * 20;
+                
+                element.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96a606041065dfb7',t:'MTc1NDM5NDA2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

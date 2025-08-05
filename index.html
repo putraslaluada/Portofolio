@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant - Elegant & Modern</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: #000000;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #1a1a2e 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, #16213e 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #0f3460 0%, transparent 50%),
+                linear-gradient(45deg, transparent 40%, rgba(29, 78, 216, 0.1) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(147, 51, 234, 0.1) 50%, transparent 60%);
+            background-size: 400px 400px, 300px 300px, 500px 500px, 200px 200px, 200px 200px;
+            background-position: 0 0, 100% 100%, 50% 50%, 0 0, 100% 0;
+            animation: backgroundMove 20s ease-in-out infinite;
+        }
+        
+        @keyframes backgroundMove {
+            0%, 100% { background-position: 0 0, 100% 100%, 50% 50%, 0 0, 100% 0; }
+            50% { background-position: 100% 0, 0 0, 25% 75%, 100% 100%, 0 100%; }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .typing-animation {
+            animation: typing 2s infinite;
+        }
+        
+        @keyframes typing {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 2s infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.3); opacity: 0; }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .message-bubble {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Home Logo -->
+        <div class="absolute top-6 left-6 z-10">
+            <a href="http://127.0.0.1:5500/profile/profile.html" class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all duration-200 backdrop-blur-sm border border-white border-opacity-20 group" id="homeButton">
+                <svg class="w-6 h-6 text-white group-hover:scale-110 transition-transform duration-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                </svg>
+            </a>
+        </div>
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="relative inline-block">
+                <div class="relative w-32 h-32 mx-auto mb-6 float-animation" style="perspective: 1000px;">
+                    <div class="w-full h-full transform-gpu" style="transform: rotateX(15deg) rotateY(-10deg);">
+                        <!-- Robot 3D Container -->
+                        <div class="relative w-full h-full flex items-center justify-center">
+                            <!-- Robot Head with 3D effect -->
+                            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-12 bg-gradient-to-b from-gray-300 to-gray-600 rounded-lg shadow-lg" id="robotHead" style="box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3); transition: transform 0.2s ease-out; transform-origin: center bottom;">
+                                <!-- Antenna -->
+                                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-1 h-4 bg-gradient-to-t from-gray-400 to-gray-200 rounded-full"></div>
+                                <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gradient-to-br from-red-400 to-red-600 rounded-full shadow-sm animate-pulse"></div>
+                                
+                                <!-- Eyes with 3D glow -->
+                                <div class="absolute top-3 left-3 w-3 h-3 bg-black rounded-full shadow-inner" id="leftEye">
+                                    <div class="w-2 h-2 bg-cyan-400 rounded-full shadow-lg animate-pulse eye-pupil m-0.5" style="box-shadow: 0 0 8px #00ffff, inset 0 1px 2px rgba(255,255,255,0.5); transition: transform 0.1s ease-out;"></div>
+                                </div>
+                                <div class="absolute top-3 right-3 w-3 h-3 bg-black rounded-full shadow-inner" id="rightEye">
+                                    <div class="w-2 h-2 bg-cyan-400 rounded-full shadow-lg animate-pulse eye-pupil m-0.5" style="box-shadow: 0 0 8px #00ffff, inset 0 1px 2px rgba(255,255,255,0.5); transition: transform 0.1s ease-out;"></div>
+                                </div>
+                                
+                                <!-- Mouth -->
+                                <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-black rounded-full opacity-60" style="box-shadow: inset 0 1px 2px rgba(0,0,0,0.8);"></div>
+                            </div>
+                            
+                            <!-- Robot Body with 3D depth -->
+                            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-12 h-8 bg-gradient-to-b from-gray-300 to-gray-600 rounded-md shadow-lg" style="box-shadow: inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3);">
+                                <!-- Chest Panel with 3D inset -->
+                                <div class="absolute top-1 left-1/2 transform -translate-x-1/2 w-8 h-3 bg-gray-800 rounded-sm" style="box-shadow: inset 0 1px 3px rgba(0,0,0,0.8), inset 0 -1px 1px rgba(255,255,255,0.1);">
+                                    <!-- Status lights with 3D glow -->
+                                    <div class="absolute top-1 left-1 w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style="box-shadow: 0 0 4px #00ffff;"></div>
+                                    <div class="absolute top-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-red-400 rounded-full animate-pulse" style="box-shadow: 0 0 4px #ff6b6b; animation-delay: 0.5s;"></div>
+                                    <div class="absolute top-1 right-1 w-1 h-1 bg-green-400 rounded-full animate-pulse" style="box-shadow: 0 0 4px #4ecdc4; animation-delay: 1s;"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Robot Arms with 3D perspective -->
+                            <div class="absolute bottom-8 left-2 w-4 h-2 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full shadow-md transform rotate-12" style="box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.2);"></div>
+                            <div class="absolute bottom-8 right-2 w-4 h-2 bg-gradient-to-l from-gray-400 to-gray-600 rounded-full shadow-md transform -rotate-12" style="box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.2);"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 3D Shadow -->
+                    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-4 w-20 h-4 bg-black opacity-20 rounded-full blur-sm"></div>
+                </div>
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-2">Neoput Assistant</h1>
+            <p class="text-white text-opacity-80 text-lg">Asisten pintar untuk membantu Anda</p>
+        </div>
+
+        <!-- Chat Container -->
+        <div class="glass-effect rounded-2xl p-6 mb-6 shadow-2xl">
+            <div class="h-96 overflow-y-auto mb-4 space-y-4" id="chatContainer">
+                <!-- Welcome Message -->
+                <div class="flex items-start space-x-3 message-bubble">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="bg-white bg-opacity-90 rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs">
+                        <p class="text-gray-800">Halo! Saya Neoput Assistant Anda. Bagaimana saya bisa membantu Anda hari ini?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="flex items-center space-x-3">
+                <div class="flex-1 relative">
+                    <input 
+                        type="text" 
+                        id="messageInput"
+                        placeholder="Ketik pesan Anda di sini..."
+                        class="w-full bg-white bg-opacity-90 rounded-full px-6 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 text-gray-800 placeholder-gray-500"
+                    >
+                    <button 
+                        id="sendButton"
+                        class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center hover:from-blue-600 hover:to-purple-700 transition-all duration-200"
+                    >
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+                <button 
+                    id="voiceButton"
+                    class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all duration-200 float-animation"
+                >
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="glass-effect rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 cursor-pointer">
+                <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 11H7v6h2v-6zm4 0h-2v6h2v-6zm4 0h-2v6h2v-6zm2.5-9H19V1h-2v1H7V1H5v1H3.5C2.67 2 2 2.67 2 3.5v15C2 19.33 2.67 20 3.5 20h17c.83 0 1.5-.67 1.5-1.5v-15C22 2.67 21.33 2 20.5 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-white font-semibold mb-2">Analisis Data</h3>
+                <p class="text-white text-opacity-70 text-sm">Analisis dan interpretasi data dengan cepat dan akurat</p>
+            </div>
+
+            <div class="glass-effect rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 cursor-pointer">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-white font-semibold mb-2">Kreatif</h3>
+                <p class="text-white text-opacity-70 text-sm">Bantuan kreatif untuk ide dan solusi inovatif</p>
+            </div>
+
+            <div class="glass-effect rounded-xl p-6 text-center hover:bg-opacity-20 transition-all duration-300 cursor-pointer">
+                <div class="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <h3 class="text-white font-semibold mb-2">24/7 Support</h3>
+                <p class="text-white text-opacity-70 text-sm">Tersedia kapan saja untuk membantu kebutuhan Anda</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const voiceButton = document.getElementById('voiceButton');
+        const chatContainer = document.getElementById('chatContainer');
+
+        // Sample AI responses
+        const aiResponses = [
+            "Terima kasih atas pertanyaan Anda! Saya akan membantu Anda dengan senang hati.",
+            "Itu pertanyaan yang menarik! Mari saya berikan beberapa insight untuk Anda.",
+            "Saya memahami kebutuhan Anda. Berikut adalah solusi yang bisa saya tawarkan.",
+            "Berdasarkan analisis saya, ini adalah rekomendasi terbaik untuk situasi Anda.",
+            "Saya senang bisa membantu! Apakah ada hal lain yang ingin Anda tanyakan?"
+        ];
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex items-start space-x-3 message-bubble ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = `w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                isUser ? 'bg-gradient-to-r from-green-400 to-blue-500' : 'bg-gradient-to-r from-blue-400 to-purple-500'
+            }`;
+            
+            const avatarIcon = document.createElement('svg');
+            avatarIcon.className = 'w-4 h-4 text-white';
+            avatarIcon.setAttribute('fill', 'currentColor');
+            avatarIcon.setAttribute('viewBox', '0 0 24 24');
+            avatarIcon.innerHTML = isUser ? 
+                '<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>' :
+                '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>';
+            
+            avatar.appendChild(avatarIcon);
+            
+            const messageBubble = document.createElement('div');
+            messageBubble.className = `bg-white bg-opacity-90 rounded-2xl px-4 py-3 max-w-xs ${
+                isUser ? 'rounded-tr-sm bg-gradient-to-r from-green-400 to-blue-500 text-white bg-opacity-100' : 'rounded-tl-sm'
+            }`;
+            
+            const messageText = document.createElement('p');
+            messageText.className = isUser ? 'text-white' : 'text-gray-800';
+            messageText.textContent = message;
+            
+            messageBubble.appendChild(messageText);
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(messageBubble);
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                messageInput.value = '';
+                // Show typing animation bubble
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'flex items-start space-x-3 message-bubble';
+                typingDiv.innerHTML = `
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="bg-white bg-opacity-90 rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs">
+                        <span class="typing-animation text-gray-800">Neoput Assistant sedang mengetik...</span>
+                    </div>
+                `;
+                chatContainer.appendChild(typingDiv);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+
+                // Request to Flask backend
+                fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ msg: message })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    // Remove typing animation
+                    chatContainer.removeChild(typingDiv);
+                    addMessage(data.reply, false);
+                })
+                .catch(() => {
+                    chatContainer.removeChild(typingDiv);
+                    addMessage('Gagal terhubung ke server AI.', false);
+                });
+            }
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        voiceButton.addEventListener('click', () => {
+            // Voice input simulation
+            voiceButton.classList.add('animate-pulse');
+            setTimeout(() => {
+                voiceButton.classList.remove('animate-pulse');
+                addMessage("Pesan suara diterima!", true);
+                setTimeout(() => {
+                    addMessage("Maaf, fitur voice belum tersedia. Silakan gunakan text input.", false);
+                }, 1000);
+            }, 2000);
+        });
+
+        // Feature cards click handlers
+        document.querySelectorAll('.glass-effect').forEach((card, index) => {
+            if (index > 0) { // Skip the chat container
+                card.addEventListener('click', () => {
+                    const features = ['Analisis Data', 'Kreatif', '24/7 Support'];
+                    const featureName = features[index - 1];
+                    addMessage(`Saya tertarik dengan fitur ${featureName}`, true);
+                    setTimeout(() => {
+                        addMessage(`Fitur ${featureName} adalah salah satu keunggulan saya! Saya siap membantu Anda dengan kemampuan ini.`, false);
+                    }, 1000);
+                });
+            }
+        });
+
+        // Interactive robot functionality
+        const leftEye = document.getElementById('leftEye');
+        const rightEye = document.getElementById('rightEye');
+        const robotHead = document.getElementById('robotHead');
+        const leftPupil = leftEye.querySelector('.eye-pupil');
+        const rightPupil = rightEye.querySelector('.eye-pupil');
+        const robotContainer = robotHead.closest('.relative');
+
+        let isRobotSpeaking = false;
+        let robotMood = 'happy'; // happy, excited, sleepy, surprised
+
+        // Robot expressions and moods
+        const robotExpressions = {
+            happy: { eyeColor: '#00ffff', eyeSize: '0.5rem', mouthWidth: '1.5rem' },
+            excited: { eyeColor: '#ff6b6b', eyeSize: '0.6rem', mouthWidth: '2rem' },
+            sleepy: { eyeColor: '#a0a0a0', eyeSize: '0.3rem', mouthWidth: '1rem' },
+            surprised: { eyeColor: '#ffff00', eyeSize: '0.7rem', mouthWidth: '0.5rem' }
+        };
+
+        // Sound effects simulation
+        function playSound(type) {
+            const sounds = {
+                beep: '🔊 *beep*',
+                chirp: '🔊 *chirp chirp*',
+                whir: '🔊 *whirrrr*',
+                click: '🔊 *click*'
+            };
+            
+            // Visual sound feedback
+            const soundDiv = document.createElement('div');
+            soundDiv.textContent = sounds[type] || '🔊 *sound*';
+            soundDiv.className = 'absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-cyan-400 animate-bounce';
+            robotContainer.appendChild(soundDiv);
+            
+            setTimeout(() => {
+                robotContainer.removeChild(soundDiv);
+            }, 1500);
+        }
+
+        function updateEyePosition(mouseX, mouseY) {
+            // Get robot head position
+            const headRect = robotHead.getBoundingClientRect();
+            const headCenterX = headRect.left + headRect.width / 2;
+            const headCenterY = headRect.top + headRect.height / 2;
+
+            // Calculate angle from robot head to cursor
+            const deltaX = mouseX - headCenterX;
+            const deltaY = mouseY - headCenterY;
+            const angle = Math.atan2(deltaY, deltaX);
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            
+            // Eye pupil movement only (no head movement)
+            const maxPupilMovement = 3;
+            const pupilDistance = Math.min(distance / 200, 1);
+            
+            const pupilOffsetX = Math.cos(angle) * pupilDistance * maxPupilMovement;
+            const pupilOffsetY = Math.sin(angle) * pupilDistance * maxPupilMovement;
+            
+            // Apply transform to pupils only
+            leftPupil.style.transform = `translate(${pupilOffsetX}px, ${pupilOffsetY}px)`;
+            rightPupil.style.transform = `translate(${pupilOffsetX}px, ${pupilOffsetY}px)`;
+        }
+
+        function changeRobotMood(newMood) {
+            robotMood = newMood;
+            const expression = robotExpressions[newMood];
+            
+            // Update eye color and size
+            leftPupil.style.backgroundColor = expression.eyeColor;
+            rightPupil.style.backgroundColor = expression.eyeColor;
+            leftPupil.style.width = expression.eyeSize;
+            leftPupil.style.height = expression.eyeSize;
+            rightPupil.style.width = expression.eyeSize;
+            rightPupil.style.height = expression.eyeSize;
+            
+            // Update mouth
+            const mouth = robotHead.querySelector('.bottom-2');
+            mouth.style.width = expression.mouthWidth;
+        }
+
+        function robotBlink() {
+            leftPupil.style.transform += ' scaleY(0.1)';
+            rightPupil.style.transform += ' scaleY(0.1)';
+            
+            setTimeout(() => {
+                leftPupil.style.transform = leftPupil.style.transform.replace(' scaleY(0.1)', '');
+                rightPupil.style.transform = rightPupil.style.transform.replace(' scaleY(0.1)', '');
+            }, 150);
+        }
+
+        function robotNod() {
+            // Head nodding disabled - only eye blinking for acknowledgment
+            robotBlink();
+        }
+
+        function robotShake() {
+            // Head shaking disabled - only eye blinking for acknowledgment
+            robotBlink();
+        }
+
+        // Interactive click handlers
+        robotHead.addEventListener('click', () => {
+            playSound('beep');
+            robotBlink();
+            changeRobotMood('excited');
+            addMessage("Halo! Anda mengklik kepala saya! 😊", false);
+            
+            setTimeout(() => {
+                changeRobotMood('happy');
+            }, 2000);
+        });
+
+        leftEye.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSound('chirp');
+            changeRobotMood('surprised');
+            addMessage("Mata kiri saya berkedip! ✨", false);
+            
+            setTimeout(() => {
+                changeRobotMood('happy');
+            }, 1500);
+        });
+
+        rightEye.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playSound('chirp');
+            changeRobotMood('surprised');
+            addMessage("Mata kanan saya berkedip! ✨", false);
+            
+            setTimeout(() => {
+                changeRobotMood('happy');
+            }, 1500);
+        });
+
+        // Hover effects - only mood changes, no head movement
+        robotHead.addEventListener('mouseenter', () => {
+            changeRobotMood('excited');
+        });
+
+        robotHead.addEventListener('mouseleave', () => {
+            changeRobotMood('happy');
+        });
+
+        // Double click for special animation
+        robotHead.addEventListener('dblclick', () => {
+            playSound('whir');
+            robotHead.style.animation = 'spin 1s ease-in-out';
+            changeRobotMood('excited');
+            addMessage("Wah! Saya berputar! Itu menyenangkan! 🌟", false);
+            
+            setTimeout(() => {
+                robotHead.style.animation = '';
+                changeRobotMood('happy');
+            }, 1000);
+        });
+
+        // Random robot behaviors - no head movement
+        function randomRobotBehavior() {
+            const behaviors = [
+                () => { robotBlink(); },
+                () => { 
+                    changeRobotMood('sleepy'); 
+                    setTimeout(() => changeRobotMood('happy'), 2000);
+                },
+                () => {
+                    playSound('beep');
+                    robotBlink();
+                }
+            ];
+            
+            const randomBehavior = behaviors[Math.floor(Math.random() * behaviors.length)];
+            randomBehavior();
+        }
+
+        // Auto blink every 3-7 seconds
+        function startAutoBlink() {
+            const blinkInterval = Math.random() * 4000 + 3000; // 3-7 seconds
+            setTimeout(() => {
+                if (!isRobotSpeaking) {
+                    robotBlink();
+                }
+                startAutoBlink();
+            }, blinkInterval);
+        }
+
+        // Random behavior every 10-20 seconds
+        function startRandomBehavior() {
+            const behaviorInterval = Math.random() * 10000 + 10000; // 10-20 seconds
+            setTimeout(() => {
+                if (!isRobotSpeaking) {
+                    randomRobotBehavior();
+                }
+                startRandomBehavior();
+            }, behaviorInterval);
+        }
+
+        // Enhanced message sending with robot reactions
+        const originalSendMessage = sendMessage;
+        sendMessage = function() {
+            const message = messageInput.value.trim();
+            if (message) {
+                isRobotSpeaking = true;
+                changeRobotMood('excited');
+                playSound('click');
+                
+                originalSendMessage();
+                
+                // Robot thinking animation - only sound and blink
+                setTimeout(() => {
+                    robotBlink();
+                    playSound('whir');
+                }, 500);
+                
+                setTimeout(() => {
+                    isRobotSpeaking = false;
+                    changeRobotMood('happy');
+                }, 2000);
+            }
+        };
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            updateEyePosition(e.clientX, e.clientY);
+        });
+
+        // Track touch movement for mobile
+        document.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                updateEyePosition(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+
+        // Add CSS for spin animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotateX(15deg) rotateY(-10deg) rotateZ(0deg); }
+                to { transform: rotateX(15deg) rotateY(-10deg) rotateZ(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Start automatic behaviors
+        startAutoBlink();
+        startRandomBehavior();
+
+        // Home button functionality
+        const homeButton = document.getElementById('homeButton');
+        homeButton.addEventListener('click', () => {
+            // Clear chat
+            chatContainer.innerHTML = `
+                <div class="flex items-start space-x-3 message-bubble">
+                    <div class="w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <div class="bg-white bg-opacity-90 rounded-2xl rounded-tl-sm px-4 py-3 max-w-xs">
+                        <p class="text-gray-800">Halo! Saya AI Assistant Anda. Bagaimana saya bisa membantu Anda hari ini?</p>
+                    </div>
+                </div>
+            `;
+            
+            // Reset robot mood
+            changeRobotMood('happy');
+            playSound('beep');
+            robotBlink();
+            
+            // Clear input
+            messageInput.value = '';
+            
+            // Welcome message
+            setTimeout(() => {
+                addMessage("Selamat datang kembali! Chat telah direset. 🏠", false);
+            }, 500);
+        });
+
+        // Welcome interaction
+        setTimeout(() => {
+            playSound('beep');
+            robotBlink();
+            addMessage("Coba klik kepala saya atau mata saya untuk interaksi yang menyenangkan! 🤖", false);
+        }, 2000);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'969e8c2af3cca8d9',t:'MTc1NDMxNTY3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
